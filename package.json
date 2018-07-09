@@ -1,0 +1,23 @@
+{
+  "name": "github-avatar-downloader",
+  "version": "1.0.0",
+  "description": "## Problem Statement",
+  "main": "download_avatars.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DelsonTan/github-avatar-downloader.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DelsonTan/github-avatar-downloader/issues"
+  },
+  "homepage": "https://github.com/DelsonTan/github-avatar-downloader#readme",
+  "dependencies": {
+    "request": "^2.87.0"
+  }
+}
