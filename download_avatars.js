@@ -14,21 +14,34 @@ function getRepoContributors(repoOwner, repoName, cb) {
 
   request(options, function(err, res, body) {
 
+    if (err) {
+      console.log(err);
+      return;
+    }
 
-    request.get(options.url).on('error', function() {
-      throw err;
-    })
-    .on('response', function() {
-      console.log('Response Status Code: ', res.statusCode + '\n'
-        + 'Response Message: ' + res.statusMessage + '\n'
-        + 'Content Type: ' + res.headers['content-type'] + '\n'
-        + 'Download running ... ');
-    })
-    cb(err, body);
+    var parsed = JSON.parse(body);
+
+    cb(null, parsed);
+
+
+    // request.get(options.url).on('error', function() {
+    //   throw err;
+    // })
+    // .on('response', function() {
+    //   console.log('Response Status Code: ', res.statusCode + '\n'
+    //     + 'Response Message: ' + res.statusMessage + '\n'
+    //     + 'Download running ... ');
+    //     cb(err, result]);
+
+    // })
   });
 }
 
 getRepoContributors("jquery", "jquery", function(err, result) {
-  console.log("Errors:", err);
-  console.log("Result:", result);
+
+  console.log("Result:");
+  for (user of result) {
+    console.log(user.avatar_url);
+  }
+  console.log('Download complete.')
 });
