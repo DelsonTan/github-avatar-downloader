@@ -71,6 +71,3 @@ typings/
 
 # Serverless directories
 .serverless
-
-# secrets.js
-secrets.js
