@@ -8,6 +8,11 @@ var args = [process.argv[2], process.argv[3]]
 console.log('Welcome to the GitHub Avatar Downloader!');
 
 function getRepoContributors(repoOwner, repoName, cb) {
+  if (args[0] === undefined || args[1] === undefined) {
+    console.log("Error: owner and/or repo arguments not specified, please try again");
+    return;
+  }
+
   var options = {
     url: "https://api.github.com/repos/" + repoOwner + "/" + repoName + "/contributors",
     headers: {
