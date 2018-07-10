@@ -1,6 +1,9 @@
 var request = require('request');
 var fs = require('fs');
 var env = require('dotenv').config();
+var mkdirp = require('mkdirp');
+var args = [process.argv[2], process.argv[3]]
+
 
 console.log('Welcome to the GitHub Avatar Downloader!');
 
@@ -41,12 +44,14 @@ function getRepoContributors(repoOwner, repoName, cb) {
 function downloadImageByURL(url, filePath) {
   request.get(url)
          .on('error', function(err) {
-          throw err;
+          console.log(err);
+          return
          })
          .on('response', function(response) {
-          console.log(`Response Status Code: ${response.statusCode}
+
+          console.log(`Response Status  Code: ${response.statusCode}
             \nReponse Message: ${response.statusMessage}
-            \nContent Type: ${response.headers['content-type']}`)
+            \nContent Type: ${response.headers['content-type']}\n`)
          })
          .pipe(fs.createWriteStream(filePath))
          .on('end', function() {
@@ -55,11 +60,17 @@ function downloadImageByURL(url, filePath) {
 
 }
 
-getRepoContributors("jquery", "jquery", function(err, result) {
+getRepoContributors(args[0], args[1], function(err, result) {
 
-  console.log("Result:");
+  mkdirp('./avatars', function (err) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+  });
   for (user of result) {
     downloadImageByURL(user.avatar_url, `./avatars/${user.login}.jpg`);
   }
   console.log('Request complete.')
 });
+
