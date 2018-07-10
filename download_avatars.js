@@ -34,17 +34,14 @@ function getRepoContributors(repoOwner, repoName, cb) {
   });
 }
 
-function downloadImageByURL(url, filePath) {
+function downloadImageByURL(url, filePath, user) {
   request.get(url)
          .on('error', function(err) {
           console.log(err);
           return
          })
          .on('response', function(response) {
-
-          console.log(`Response Status  Code: ${response.statusCode}
-            \nReponse Message: ${response.statusMessage}
-            \nContent Type: ${response.headers['content-type']}\n`)
+          console.log(`Downloaded ${user}'s avatar successfully.`)
          })
          .pipe(fs.createWriteStream(filePath))
          .on('end', function() {
@@ -62,7 +59,7 @@ getRepoContributors(args[0], args[1], function(err, result) {
     }
   });
   for (user of result) {
-    downloadImageByURL(user.avatar_url, `./avatars/${user.login}.jpg`);
+    downloadImageByURL(user.avatar_url, `./avatars/${user.login}.jpg`, user.login);
   }
   console.log('Request complete.')
 });
